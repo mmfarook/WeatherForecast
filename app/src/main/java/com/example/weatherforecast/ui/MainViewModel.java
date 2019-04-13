@@ -1,24 +1,26 @@
 package com.example.weatherforecast.ui;
 
-import android.arch.lifecycle.ViewModel;
 
 import com.example.weatherforecast.model.Forecast;
 import com.example.weatherforecast.repository.ForecastRepository;
 
-import java.util.List;
+import javax.inject.Inject;
 
+import androidx.lifecycle.ViewModel;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 
 public class MainViewModel extends ViewModel {
 
     private ForecastRepository forecastRepository;
 
+    @Inject
     public MainViewModel(ForecastRepository forecastRepository) {
         this.forecastRepository = forecastRepository;
     }
 
-    public Observable<List<Forecast>> getForecasts() {
+    public Observable<Forecast> getForecasts() {
         return forecastRepository.getForecasts();
     }
 

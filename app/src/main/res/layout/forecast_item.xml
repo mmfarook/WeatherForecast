@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         card_view:cardCornerRadius="10dp">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -18,22 +19,62 @@
                 android:id="@+id/date_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <android.support.constraint.Guideline
+                app:layout_constraintGuide_percent="0.5"
+                android:id="@+id/guideline_half"
+                android:orientation="vertical"
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
+
 
             <TextView
                 android:id="@+id/max_lable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/max"
+                android:layout_below="@id/date_view"
                 android:layout_margin="16dp"
-                android:layout_below="@id/date_view"/>
+                android:text="@string/max"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_view"
+                app:layout_constraintRight_toRightOf="@id/guideline_half"/>
+
             <TextView
                 android:id="@+id/max_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/max_lable"
-                android:layout_toRightOf="@id/max_lable"
-                android:layout_below="@id/date_view"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_below="@id/date_view"
+                android:layout_margin="16dp"
+                android:text="hello"
+                app:layout_constraintTop_toBottomOf="@id/date_view"
+                app:layout_constraintStart_toEndOf="@id/max_lable"
+                app:layout_contraintEnd_toEndOf="@id/guideline_half"/>
+
+
+            <TextView
+                android:id="@+id/min_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date_view"
+                android:layout_margin="16dp"
+                android:text="@string/min"
+                app:layout_constraintStart_toStartOf="@id/guideline_half"
+                app:layout_constraintTop_toBottomOf="@id/date_view" />
+
+            <TextView
+                android:id="@+id/min_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date_view"
+                android:layout_margin="16dp"
+                android:text="hello"
+                app:layout_constraintTop_toBottomOf="@id/date_view"
+                app:layout_constraintLeft_toRightOf="@id/min_lable"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

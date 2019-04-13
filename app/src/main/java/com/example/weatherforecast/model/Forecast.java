@@ -1,59 +1,43 @@
 package com.example.weatherforecast.model;
 
+
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Forecast {
-    private String date;
-    private double maxTemp;
-    private double minTemp;
-    private double averageTemp;
-    private double maxWind;
-    private Condition condition;
+    @SerializedName("location")
+    @Expose
+    private Location location;
+    @SerializedName("current")
+    @Expose
+    private Current current;
+    @SerializedName("forecast")
+    @Expose
+    private Forecast_ forecast;
 
-    public String getDate() {
-        return date;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public double getMaxTemp() {
-        return maxTemp;
+    public Current getCurrent() {
+        return current;
     }
 
-    public void setMaxTemp(double maxTemp) {
-        this.maxTemp = maxTemp;
+    public void setCurrent(Current current) {
+        this.current = current;
     }
 
-    public double getMinTemp() {
-        return minTemp;
+    public Forecast_ getForecast() {
+        return forecast;
     }
 
-    public void setMinTemp(double minTemp) {
-        this.minTemp = minTemp;
-    }
-
-    public double getAverageTemp() {
-        return averageTemp;
-    }
-
-    public void setAverageTemp(double averageTemp) {
-        this.averageTemp = averageTemp;
-    }
-
-    public double getMaxWind() {
-        return maxWind;
-    }
-
-    public void setMaxWind(double maxWind) {
-        this.maxWind = maxWind;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
+    public void setForecast(Forecast_ forecast) {
+        this.forecast = forecast;
     }
 
 }

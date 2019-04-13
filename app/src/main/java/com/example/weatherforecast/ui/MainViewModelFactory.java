@@ -1,21 +1,45 @@
 package com.example.weatherforecast.ui;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.weatherforecast.repository.ForecastRepository;
+
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainViewModelFactory implements ViewModelProvider.Factory {
 
-    private ForecastRepository mForecastRepository;
+    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
-    public MainViewModelFactory(ForecastRepository forecastRepository) {
-        this.mForecastRepository = forecastRepository;
+    @Inject
+    public MainViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
+        this.creators = creators;
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        return (T) new MainViewModel(mForecastRepository);
+        Provider<? extends ViewModel> creator = creators.get(modelClass);
+        if (creator == null) {
+            for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
+                if (modelClass.isAssignableFrom(entry.getKey())) {
+                    creator = entry.getValue();
+                    break;
+                }
+            }
+        }
+        if (creator == null) {
+            throw new IllegalArgumentException("unknown model class " + modelClass);
+        }
+        try {
+            return (T) creator.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
+
+

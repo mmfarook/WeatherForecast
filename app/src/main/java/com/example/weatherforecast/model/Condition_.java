@@ -3,7 +3,7 @@ package com.example.weatherforecast.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Condition {
+public class Condition_ {
     @SerializedName("text")
     @Expose
     private String text;

@@ -1,9 +1,7 @@
 package com.example.weatherforecast.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.ListAdapter;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.RecyclerView;
+
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +9,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.weatherforecast.R;
-import com.example.weatherforecast.model.Forecast;
+import com.example.weatherforecast.model.ForecastDay;
 
-public class ForecastAdapter extends ListAdapter<Forecast, ForecastAdapter.ForecastViewHolder> {
+import javax.inject.Inject;
 
-    final static DiffUtil.ItemCallback<Forecast> diffCallback = new DiffUtil.ItemCallback<Forecast>() {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class ForecastAdapter extends ListAdapter<ForecastDay, ForecastAdapter.ForecastViewHolder> {
+
+    final static DiffUtil.ItemCallback<ForecastDay> diffCallback = new DiffUtil.ItemCallback<ForecastDay>() {
         @Override
-        public boolean areItemsTheSame(Forecast oldItem, Forecast newItem) {
-            return oldItem.getMaxTemp() == newItem.getMaxTemp();
+        public boolean areItemsTheSame(ForecastDay oldItem, ForecastDay newItem) {
+            return TextUtils.equals(oldItem.getDate(), newItem.getDate());
         }
 
         @Override
-        public boolean areContentsTheSame(Forecast oldItem, Forecast newItem) {
+        public boolean areContentsTheSame(ForecastDay oldItem, ForecastDay newItem) {
             return areItemsTheSame(oldItem, newItem);
 
         }
     };
 
+    @Inject
     public ForecastAdapter() {
         super(diffCallback);
     }
@@ -45,9 +51,9 @@ public class ForecastAdapter extends ListAdapter<Forecast, ForecastAdapter.Forec
         }
 
 
-        void bindTo(ForecastViewHolder forecastViewHolder, Forecast forecast) {
+        void bindTo(ForecastViewHolder forecastViewHolder, ForecastDay forecast) {
             dateView.setText(forecast.getDate());
-            maxTempView.setText(Double.toString(forecast.getMaxTemp()));
+            maxTempView.setText(Double.toString(forecast.getDay().getMaxtempF()));
         }
     }
 
@@ -60,7 +66,7 @@ public class ForecastAdapter extends ListAdapter<Forecast, ForecastAdapter.Forec
 
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder mholder, int position) {
-        Forecast forecast = getItem(position);
+        ForecastDay forecast = getItem(position);
         mholder.bindTo(mholder, forecast);
     }
 }
